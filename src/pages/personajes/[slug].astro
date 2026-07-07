@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CharacterDetailHeader from '../../components/CharacterDetailHeader.astro';
 
 export async function getStaticPaths() {
   const characters = await getCollection('characters');
@@ -21,13 +22,7 @@ const { Content } = await entry.render();
 
 <BaseLayout title={`${name} - Enciclopedia de Donkey Kong`} description={description}>
   <article>
-    <header class="character-detail-header">
-      <span class="character-detail-header__role">{role}</span>
-      <h1 class="character-detail-header__name">{name}</h1>
-      <p class="character-detail-header__first-appearance">
-        Primera aparición: {firstAppearance}
-      </p>
-    </header>
+    <CharacterDetailHeader name={name} role={role} firstAppearance={firstAppearance} />
 
     <div class="character-detail-body">
       <Content />
@@ -36,32 +31,6 @@ const { Content } = await entry.render();
 </BaseLayout>
 
 <style>
-  .character-detail-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding-block: var(--space-7) var(--space-6);
-    border-bottom: var(--border-width) solid var(--color-border);
-  }
-
-  .character-detail-header__role {
-    font-family: var(--font-heading);
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .character-detail-header__name {
-    font-size: var(--font-size-2xl);
-    color: var(--color-primary);
-    text-shadow: 0 0 18px var(--color-primary-glow);
-  }
-
-  .character-detail-header__first-appearance {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-
   .character-detail-body {
     padding-block: var(--space-6);
     max-width: 70ch;
