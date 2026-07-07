@@ -1,0 +1,14 @@
+---
+title: "El relevo generacional: de villano encadenado a abuelo Cranky"
+order: 2
+summary: >
+  Cómo el gorila original de 1981 envejeció dentro de la propia continuidad
+  de Nintendo hasta convertirse en Cranky Kong, cediendo el nombre y el
+  protagonismo a su nieto en Donkey Kong Country (1994).
+---
+
+Entre el arcade original y la explosión de la serie Country en la Super Nintendo transcurrió más de una década, y en ese tiempo el gorila protagonista tuvo, de hecho, una segunda aparición propia: Donkey Kong Jr., el arcade de 1982 en el que los papeles se invertían y era el propio Jumpman —ya camino a convertirse en Mario— quien aparecía como captor, encerrando al gorila original en una jaula de la que su hijo debía liberarlo. Esa secuela es la primera pista de que, dentro de la ficción de Nintendo, el Donkey Kong de 1981 no estaba solo: tenía descendencia, y esa descendencia empezaría a definir el futuro de toda la marca.
+
+El verdadero giro llegó en 1994, cuando Rare recibió el encargo de resucitar a Donkey Kong para la Super Nintendo. En lugar de recuperar sin más al villano de la década anterior, el estudio británico optó por una solución narrativa poco habitual incluso para los criterios flexibles de continuidad de Nintendo: el gorila original había envejecido, se había retirado de la primera línea de acción y ahora se llamaba Cranky Kong, un anciano gruñón apoyado en un bastón que pasaba buena parte de su tiempo comparando, siempre para mal, cualquier aventura moderna con "los juegos de su época" —una broma que apelaba directamente a la nostalgia de los propios jugadores que habían crecido con el arcade original—. El manual de Donkey Kong Country resolvió el árbol genealógico con una fórmula concreta: el nuevo protagonista, que heredaba el nombre completo de Donkey Kong, era hijo de aquel Donkey Kong Jr. del arcade de 1982 y, por tanto, nieto directo del gorila fundacional que ahora respondía al nombre de Cranky.
+
+Ese relevo no fue solo una cuestión de árbol familiar: implicó una reinvención completa del personaje. El nuevo Donkey Kong se presentó como un héroe bonachón, fuerte y leal, instalado en una cabaña de Isla Donkey Kong junto a su familia, con una preocupación muy distinta a la de secuestrar a nadie: proteger su preciada reserva de plátanos de quienes quisieran robársela. Cranky, por su parte, no desapareció de la historia; al contrario, se reconvirtió en tendero, mentor y comentarista sarcástico de las aventuras de su nieto, una presencia que la propia franquicia usaría después, en Donkey Kong Country: Tropical Freeze (2014), para devolverlo incluso al terreno jugable. La coexistencia de ambos —el abuelo que fue el primer Donkey Kong y el nieto que ahora lleva su nombre— es la pieza que explica, dentro del propio universo de ficción, por qué hay "dos Donkey Kong" a lo largo de la historia de la saga, y sienta las bases sobre las que se construiría toda la mitología familiar posterior.
