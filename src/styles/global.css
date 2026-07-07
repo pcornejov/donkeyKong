@@ -89,6 +89,7 @@ body {
 
 main {
   flex: 1 1 auto;
+  padding-block: var(--space-6);
 }
 
 /* ---------- Headings ---------- */

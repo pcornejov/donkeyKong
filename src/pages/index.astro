@@ -1,33 +1,109 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
+
+const [games, characters, lore] = await Promise.all([
+  getCollection('games'),
+  getCollection('characters'),
+  getCollection('lore'),
+]);
+
+const sections = [
+  {
+    href: `${base}juegos/`,
+    label: 'Juegos',
+    count: games.length,
+    description: 'Del arcade original de 1981 a las últimas entregas de Retro Studios.',
+  },
+  {
+    href: `${base}personajes/`,
+    label: 'Personajes',
+    count: characters.length,
+    description: 'El clan Kong, sus aliados y sus némesis a través de toda la saga.',
+  },
+  {
+    href: `${base}lore/`,
+    label: 'Lore',
+    count: lore.length,
+    description: 'La cronología narrativa que conecta todos los juegos.',
+  },
+];
 ---
+
 <BaseLayout
   title="Enciclopedia de Donkey Kong"
   description="Enciclopedia sobre juegos, personajes y lore del universo Donkey Kong."
 >
-  <section>
+  <section class="hero">
     <h1>Bienvenido a la Enciclopedia de Donkey Kong</h1>
     <p>
-      Un proyecto en construcción que reunirá juegos, personajes y la
-      cronología (lore) de la saga Donkey Kong.
+      Un proyecto de fans que reúne juegos, personajes y la cronología (lore)
+      de más de cuatro décadas de la saga Donkey Kong.
     </p>
   </section>
 
-  <section>
-    <p>
-      <strong>Aviso:</strong> este sitio está en construcción. El contenido
-      que ves ahora mismo son ejemplos de marcador de posición mientras el
-      equipo de investigación completa la información real.
-    </p>
-  </section>
-
-  <nav aria-label="Secciones principales">
-    <ul>
-      <li><a href={`${base}juegos/`}>Juegos</a></li>
-      <li><a href={`${base}personajes/`}>Personajes</a></li>
-      <li><a href={`${base}lore/`}>Lore</a></li>
-    </ul>
-  </nav>
+  <ul class="card-grid home-grid" role="list">
+    {sections.map((section) => (
+      <li>
+        <a class="home-card surface" href={section.href}>
+          <span class="home-card__count">{section.count}</span>
+          <h2 class="home-card__label">{section.label}</h2>
+          <p class="home-card__description">{section.description}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
 </BaseLayout>
+
+<style>
+  .hero {
+    padding-block-end: var(--space-6);
+  }
+
+  .hero p {
+    max-width: 60ch;
+    color: var(--color-text-muted);
+  }
+
+  .home-grid {
+    --card-grid-min: 16rem;
+  }
+
+  .home-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-base), box-shadow var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .home-card:hover,
+  .home-card:focus-visible {
+    color: var(--color-text);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-primary);
+  }
+
+  .home-card__count {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-primary-text);
+  }
+
+  .home-card__label {
+    margin: 0;
+  }
+
+  .home-card__description {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+</style>
