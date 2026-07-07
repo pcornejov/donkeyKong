@@ -1,0 +1,44 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__disclaimer">
+      Este es un proyecto de fans hecho sin fines de lucro. No tiene
+      afiliación, patrocinio ni respaldo de Nintendo Co., Ltd. Todas las
+      marcas, personajes y nombres de juegos mencionados pertenecen a sus
+      respectivos dueños; se citan únicamente con fines informativos y de
+      referencia.
+    </p>
+    <p class="site-footer__meta">
+      &copy; {year} DK Encyclopedia — proyecto independiente de fans.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: var(--border-width) solid var(--color-border);
+    background-color: var(--color-bg-elevated);
+    margin-top: var(--space-8);
+  }
+
+  .site-footer__inner {
+    padding-block: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .site-footer__disclaimer {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    max-width: 60ch;
+  }
+
+  .site-footer__meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+</style>

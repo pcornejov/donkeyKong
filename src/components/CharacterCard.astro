@@ -1,0 +1,96 @@
+---
+// Presentational card for a character entry. No real content yet — the
+// coder agent will wire this up to content-collection entries later.
+interface Props {
+  name: string;
+  role: string;
+  description: string;
+  href: string;
+}
+
+const { name, role, description, href } = Astro.props;
+---
+
+<a class="character-card surface" href={href}>
+  <div class="character-card__avatar" aria-hidden="true">
+    <span class="character-card__glyph">🎮</span>
+  </div>
+
+  <div class="character-card__body">
+    <span class="character-card__role">{role}</span>
+    <h3 class="character-card__name">{name}</h3>
+    <p class="character-card__description">{description}</p>
+    <span class="character-card__cta">Ver perfil →</span>
+  </div>
+</a>
+
+<style>
+  .character-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-base), box-shadow var(--transition-base),
+      border-color var(--transition-base);
+    height: 100%;
+  }
+
+  .character-card:hover,
+  .character-card:focus-visible {
+    color: var(--color-text);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-accent);
+  }
+
+  .character-card__avatar {
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-surface-alt), var(--color-bg-elevated));
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .character-card__glyph {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px var(--color-secondary-glow));
+  }
+
+  .character-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
+  }
+
+  .character-card__role {
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .character-card__name {
+    font-size: var(--font-size-base);
+    margin-block: var(--space-1);
+  }
+
+  .character-card__description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .character-card__cta {
+    margin-top: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xs);
+    color: var(--color-accent);
+  }
+</style>

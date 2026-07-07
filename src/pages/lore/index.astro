@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const loreEntries = (await getCollection('lore')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+<BaseLayout
+  title="Lore - Enciclopedia de Donkey Kong"
+  description="Cronología y lore del universo Donkey Kong."
+>
+  <h1>Lore</h1>
+  <p>Listado de ejemplo (contenido de marcador de posición).</p>
+  <ol>
+    {loreEntries.map((entry) => (
+      <li>
+        <strong>{entry.data.title}</strong>
+        <p>{entry.data.summary}</p>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>

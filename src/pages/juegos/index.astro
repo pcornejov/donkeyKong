@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const games = await getCollection('games');
+---
+<BaseLayout
+  title="Juegos - Enciclopedia de Donkey Kong"
+  description="Listado de juegos de la saga Donkey Kong."
+>
+  <h1>Juegos</h1>
+  <p>Listado de ejemplo (contenido de marcador de posición).</p>
+  <ul>
+    {games.map((game) => (
+      <li>
+        <strong>{game.data.title}</strong> ({game.data.releaseYear}) —{' '}
+        {game.data.platforms.join(', ')}
+        <p>{game.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

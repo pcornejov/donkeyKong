@@ -1,0 +1,113 @@
+---
+// Presentational card for a game entry. No real content yet — the coder
+// agent will wire this up to content-collection entries later.
+interface Props {
+  title: string;
+  year: string | number;
+  platform: string;
+  description: string;
+  href: string;
+}
+
+const { title, year, platform, description, href } = Astro.props;
+---
+
+<a class="game-card surface" href={href}>
+  <div class="game-card__media" aria-hidden="true">
+    <span class="game-card__glyph">👾</span>
+  </div>
+
+  <div class="game-card__body">
+    <div class="game-card__meta">
+      <span class="game-card__year">{year}</span>
+      <span class="game-card__platform">{platform}</span>
+    </div>
+
+    <h3 class="game-card__title">{title}</h3>
+    <p class="game-card__description">{description}</p>
+
+    <span class="game-card__cta">Ver ficha →</span>
+  </div>
+</a>
+
+<style>
+  .game-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-base), box-shadow var(--transition-base),
+      border-color var(--transition-base);
+    height: 100%;
+  }
+
+  .game-card:hover,
+  .game-card:focus-visible {
+    color: var(--color-text);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-primary);
+  }
+
+  .game-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--color-surface-alt), var(--color-bg-elevated));
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .game-card__glyph {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px var(--color-primary-glow));
+  }
+
+  .game-card__body {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  .game-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+  }
+
+  .game-card__platform {
+    color: var(--color-text-muted);
+  }
+
+  .game-card__platform::before {
+    content: '•';
+    margin-right: var(--space-2);
+    color: var(--color-border);
+  }
+
+  .game-card__title {
+    font-size: var(--font-size-base);
+    margin-block: var(--space-1);
+  }
+
+  .game-card__description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .game-card__cta {
+    margin-top: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xs);
+    color: var(--color-primary);
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Enciclopedia de Donkey Kong"
+  description="Enciclopedia sobre juegos, personajes y lore del universo Donkey Kong."
+>
+  <section>
+    <h1>Bienvenido a la Enciclopedia de Donkey Kong</h1>
+    <p>
+      Un proyecto en construcción que reunirá juegos, personajes y la
+      cronología (lore) de la saga Donkey Kong.
+    </p>
+  </section>
+
+  <section>
+    <p>
+      <strong>Aviso:</strong> este sitio está en construcción. El contenido
+      que ves ahora mismo son ejemplos de marcador de posición mientras el
+      equipo de investigación completa la información real.
+    </p>
+  </section>
+
+  <nav aria-label="Secciones principales">
+    <ul>
+      <li><a href={`${base}juegos/`}>Juegos</a></li>
+      <li><a href={`${base}personajes/`}>Personajes</a></li>
+      <li><a href={`${base}lore/`}>Lore</a></li>
+    </ul>
+  </nav>
+</BaseLayout>
