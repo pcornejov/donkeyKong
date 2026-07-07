@@ -9,6 +9,17 @@ interface Props {
 }
 
 const { name, role, description, href } = Astro.props;
+
+// Pick a chip color for `role` from the existing chip system (no new
+// palette): antagonist-flavored roles get the danger variant, hero/ally
+// roles get the accent variant, anything else falls back to the neutral
+// chip look. Matching is on the free-text role string, so new role labels
+// degrade gracefully to the neutral chip instead of breaking.
+const roleClass = /antagonista|villan|enemigo|rival/i.test(role)
+  ? 'chip--danger'
+  : /protagonista|h[ée]roe|aliad|mentor/i.test(role)
+    ? 'chip--accent'
+    : '';
 ---
 
 <a class="character-card surface" href={href}>
@@ -17,7 +28,7 @@ const { name, role, description, href } = Astro.props;
   </div>
 
   <div class="character-card__body">
-    <span class="character-card__role">{role}</span>
+    <span class:list={['chip', roleClass, 'character-card__role']}>{role}</span>
     <h3 class="character-card__name">{name}</h3>
     <p class="character-card__description">{description}</p>
     <span class="character-card__cta">Ver perfil →</span>
@@ -66,20 +77,19 @@ const { name, role, description, href } = Astro.props;
   .character-card__body {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: var(--space-2);
     flex: 1;
   }
 
+  /* `.chip` is inline-flex, but this flex column parent would otherwise
+     stretch it to full width; keep it hugging its own content. */
   .character-card__role {
-    font-family: var(--font-heading);
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    color: var(--color-accent);
+    align-self: flex-start;
   }
 
   .character-card__name {
     font-size: var(--font-size-base);
-    margin-block: var(--space-1);
+    margin-block: 0;
   }
 
   .character-card__description {
