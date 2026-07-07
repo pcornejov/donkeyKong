@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// Etiquetas legibles para cada `type` del índice (ver search-index.json.ts).
+const typeLabels: Record<string, string> = {
+  juego: 'Juego',
+  personaje: 'Personaje',
+  lore: 'Lore',
+};
+---
+
+<BaseLayout
+  title="Buscar - Enciclopedia de Donkey Kong"
+  description="Busca entre juegos, personajes y lore de la Enciclopedia de Donkey Kong."
+>
+  <h1>Buscar</h1>
+  <p>
+    Busca por título o texto entre todos los juegos, personajes y entradas de
+    lore de la enciclopedia.
+  </p>
+
+  <form class="search-form" role="search" onsubmit="return false">
+    <label class="search-form__label" for="search-input">Término de búsqueda</label>
+    <input
+      id="search-input"
+      class="search-form__input"
+      type="search"
+      name="q"
+      placeholder="Ej: Diddy, Kremlings, SNES..."
+      autocomplete="off"
+    />
+  </form>
+
+  <p id="search-status" class="search-status" aria-live="polite"></p>
+
+  <ul id="search-results" class="search-results card-grid card-grid--compact" role="list"></ul>
+
+  <script define:vars={{ base, typeLabels }}>
+    const input = document.getElementById('search-input');
+    const resultsEl = document.getElementById('search-results');
+    const statusEl = document.getElementById('search-status');
+
+    /** Quita acentos/diacríticos y pasa a minúsculas para comparar sin distinguir mayúsculas ni tildes. */
+    function normalize(value) {
+      return value
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    let index = [];
+    let indexLoaded = false;
+
+    async function loadIndex() {
+      try {
+        const res = await fetch(`${base}search-index.json`);
+        index = await res.json();
+      } catch (err) {
+        index = [];
+        if (statusEl) {
+          statusEl.textContent = 'No se pudo cargar el índice de búsqueda.';
+        }
+      } finally {
+        indexLoaded = true;
+        render(input && input.value ? input.value : '');
+      }
+    }
+
+    function render(rawQuery) {
+      const query = normalize(rawQuery.trim());
+
+      if (!resultsEl || !statusEl) return;
+
+      resultsEl.innerHTML = '';
+
+      if (!indexLoaded) {
+        statusEl.textContent = 'Cargando índice de búsqueda…';
+        return;
+      }
+
+      if (query === '') {
+        statusEl.textContent = 'Escribe algo para empezar a buscar.';
+        return;
+      }
+
+      const matches = index.filter((entry) => {
+        const haystack = normalize(`${entry.title} ${entry.text}`);
+        return haystack.includes(query);
+      });
+
+      if (matches.length === 0) {
+        statusEl.textContent = `Sin resultados para "${rawQuery}".`;
+        return;
+      }
+
+      statusEl.textContent = `${matches.length} resultado${matches.length === 1 ? '' : 's'} para "${rawQuery}".`;
+
+      for (const entry of matches) {
+        const li = document.createElement('li');
+        const label = typeLabels[entry.type] || entry.type;
+        li.innerHTML = `
+          <a class="search-result surface" href="${entry.href}">
+            <span class="chip search-result__type">${escapeHtml(label)}</span>
+            <span class="search-result__title">${escapeHtml(entry.title)}</span>
+            <span class="search-result__text">${escapeHtml(entry.text)}</span>
+          </a>
+        `;
+        resultsEl.appendChild(li);
+      }
+    }
+
+    if (input) {
+      input.addEventListener('input', () => render(input.value));
+    }
+
+    loadIndex();
+  </script>
+</BaseLayout>
+
+<style>
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-block: var(--space-5);
+    max-width: 32rem;
+  }
+
+  .search-form__label {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .search-form__input {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: var(--border-width) solid var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+  }
+
+  .search-status {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-block-end: var(--space-5);
+  }
+
+  .search-results {
+    margin-block-start: var(--space-4);
+  }
+
+  .search-result {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    text-decoration: none;
+    color: var(--color-text);
+    height: 100%;
+  }
+
+  .search-result:hover,
+  .search-result:focus-visible {
+    color: var(--color-text);
+    border-color: var(--color-primary);
+  }
+
+  .search-result__type {
+    align-self: flex-start;
+  }
+
+  .search-result__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+  }
+
+  .search-result__text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+</style>
