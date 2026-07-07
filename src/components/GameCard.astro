@@ -1,15 +1,23 @@
 ---
-// Presentational card for a game entry. No real content yet — the coder
-// agent will wire this up to content-collection entries later.
+// Presentational card for a game entry. Consumed by src/pages/juegos/index.astro
+// (owned by the "coder" agent), which maps entries from the `games` content
+// collection onto these props.
+//
+// NOTE on `platforms`: the games content collection schema
+// (src/content/config.ts) defines `platforms: string[]` (a game can have
+// shipped on several systems), so this card's final, single source of truth
+// for platform info is the `platforms` array — there is no singular
+// `platform` prop anymore. Always pass an array, even for a one-platform
+// game (e.g. `platforms={['Arcade']}`).
 interface Props {
   title: string;
   year: string | number;
-  platform: string;
+  platforms: string[];
   description: string;
   href: string;
 }
 
-const { title, year, platform, description, href } = Astro.props;
+const { title, year, platforms, description, href } = Astro.props;
 ---
 
 <a class="game-card surface" href={href}>
@@ -20,7 +28,11 @@ const { title, year, platform, description, href } = Astro.props;
   <div class="game-card__body">
     <div class="game-card__meta">
       <span class="game-card__year">{year}</span>
-      <span class="game-card__platform">{platform}</span>
+      <ul class="chip-list game-card__platforms">
+        {platforms.map((platform) => (
+          <li class="chip">{platform}</li>
+        ))}
+      </ul>
     </div>
 
     <h3 class="game-card__title">{title}</h3>
@@ -76,21 +88,22 @@ const { title, year, platform, description, href } = Astro.props;
   .game-card__meta {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: var(--space-2);
+  }
+
+  .game-card__year {
     font-family: var(--font-heading);
     font-size: 0.625rem;
     color: var(--color-secondary);
     text-transform: uppercase;
+    flex: none;
   }
 
-  .game-card__platform {
-    color: var(--color-text-muted);
-  }
-
-  .game-card__platform::before {
-    content: '•';
-    margin-right: var(--space-2);
-    color: var(--color-border);
+  .game-card__platforms {
+    /* Chips take over from what used to be a single "• PLATFORM" string;
+       row-gap lets them wrap onto a second line without crowding. */
+    row-gap: var(--space-1);
   }
 
   .game-card__title {
