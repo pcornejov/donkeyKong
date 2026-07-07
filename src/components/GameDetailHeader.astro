@@ -1,0 +1,134 @@
+---
+// Header for a single game's detail page (src/pages/juegos/[slug].astro,
+// owned by the "coder" agent). Purely presentational — pass it the fields
+// straight off a `games` content-collection entry (see src/content/config.ts):
+// title, releaseYear, platforms, developer, publisher, tags all match the
+// collection schema's field names 1:1, so no remapping should be needed.
+interface Props {
+  title: string;
+  releaseYear: string | number;
+  platforms: string[];
+  developer: string;
+  publisher?: string;
+  tags?: string[];
+}
+
+const { title, releaseYear, platforms, developer, publisher, tags } = Astro.props;
+---
+
+<header class="game-detail-header">
+  <p class="game-detail-header__eyebrow">
+    <span class="game-detail-header__year">{releaseYear}</span>
+    <ul class="chip-list game-detail-header__platforms">
+      {
+        platforms.map((platform) => (
+          <li class="chip chip--accent">{platform}</li>
+        ))
+      }
+    </ul>
+  </p>
+
+  <h1 class="game-detail-header__title">{title}</h1>
+
+  <dl class="game-detail-header__credits">
+    <div class="game-detail-header__credit">
+      <dt>Desarrollador</dt>
+      <dd>{developer}</dd>
+    </div>
+    {
+      publisher && (
+        <div class="game-detail-header__credit">
+          <dt>Distribuidor</dt>
+          <dd>{publisher}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  {
+    tags && tags.length > 0 && (
+      <ul class="chip-list game-detail-header__tags" aria-label="Etiquetas">
+        {tags.map((tag) => (
+          <li class="chip">#{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</header>
+
+<style>
+  .game-detail-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-block: var(--space-7) var(--space-6);
+    border-bottom: var(--border-width) solid var(--color-border);
+    overflow: hidden;
+  }
+
+  /* Marquee-light accent bar across the top, purely decorative. */
+  .game-detail-header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-accent)
+    );
+  }
+
+  .game-detail-header__eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .game-detail-header__year {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xs);
+    color: var(--color-secondary);
+    text-shadow: 0 0 12px var(--color-secondary-glow);
+  }
+
+  .game-detail-header__title {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    text-shadow: 0 0 18px var(--color-primary-glow);
+    max-width: 24ch;
+  }
+
+  .game-detail-header__credits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .game-detail-header__credit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .game-detail-header__credit dt {
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .game-detail-header__credit dd {
+    margin-inline-start: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+  }
+
+  .game-detail-header__tags {
+    margin-top: var(--space-1);
+  }
+</style>

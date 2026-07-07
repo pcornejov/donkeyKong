@@ -212,3 +212,52 @@ input:focus-visible {
   transform: translateY(1px);
   box-shadow: none;
 }
+
+/* ---------- Card grid ---------- */
+/* Responsive grid for card collections (games, characters, etc.). Cards
+   size themselves down to --card-grid-min before wrapping to a new row. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--card-grid-min, 16rem), 100%), 1fr));
+  gap: var(--space-5);
+}
+
+/* Denser variant for smaller/list-like cards (e.g. character cards). */
+.card-grid--compact {
+  --card-grid-min: 14rem;
+}
+
+/* ---------- Chips / tag lists ---------- */
+/* Small pill-shaped labels for platforms, tags, etc. `.chip-list` is a
+   plain flex row (works on <ul>, <div>, whatever); `.chip` is the pill
+   itself. Shared between GameCard, GameDetailHeader and similar. */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.625rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-alt);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+  white-space: nowrap;
+}
+
+/* Accent variant for the primary tag in a group (e.g. first platform, or
+   a featured tag) when a bit more emphasis is wanted. */
+.chip--accent {
+  color: var(--color-text-on-primary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-shadow-hard);
+}

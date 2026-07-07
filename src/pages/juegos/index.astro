@@ -1,21 +1,32 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import GameCard from '../../components/GameCard.astro';
 
-const games = await getCollection('games');
+const base = import.meta.env.BASE_URL;
+
+const games = (await getCollection('games')).sort(
+  (a, b) => a.data.releaseYear - b.data.releaseYear
+);
 ---
+
 <BaseLayout
   title="Juegos - Enciclopedia de Donkey Kong"
   description="Listado de juegos de la saga Donkey Kong."
 >
   <h1>Juegos</h1>
-  <p>Listado de ejemplo (contenido de marcador de posición).</p>
-  <ul>
+  <p>Todos los juegos de la saga Donkey Kong, ordenados por año de lanzamiento.</p>
+
+  <ul class="card-grid" role="list">
     {games.map((game) => (
       <li>
-        <strong>{game.data.title}</strong> ({game.data.releaseYear}) —{' '}
-        {game.data.platforms.join(', ')}
-        <p>{game.data.description}</p>
+        <GameCard
+          title={game.data.title}
+          year={game.data.releaseYear}
+          platforms={game.data.platforms}
+          description={game.data.description}
+          href={`${base}juegos/${game.slug}/`}
+        />
       </li>
     ))}
   </ul>

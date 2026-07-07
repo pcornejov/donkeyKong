@@ -1,0 +1,49 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GameDetailHeader from '../../components/GameDetailHeader.astro';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  return games.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'games'>;
+}
+
+const { entry } = Astro.props;
+const { title, releaseYear, platforms, developer, publisher, tags, description } = entry.data;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={`${title} - Enciclopedia de Donkey Kong`} description={description}>
+  <article>
+    <GameDetailHeader
+      title={title}
+      releaseYear={releaseYear}
+      platforms={platforms}
+      developer={developer}
+      publisher={publisher}
+      tags={tags}
+    />
+
+    <div class="game-detail-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .game-detail-body {
+    padding-block: var(--space-6);
+    max-width: 70ch;
+  }
+
+  .game-detail-body :global(p) {
+    margin-block-end: var(--space-4);
+  }
+</style>
