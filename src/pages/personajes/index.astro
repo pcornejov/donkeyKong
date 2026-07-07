@@ -1,20 +1,31 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CharacterCard from '../../components/CharacterCard.astro';
 
-const characters = await getCollection('characters');
+const base = import.meta.env.BASE_URL;
+
+const characters = (await getCollection('characters')).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name)
+);
 ---
+
 <BaseLayout
   title="Personajes - Enciclopedia de Donkey Kong"
   description="Listado de personajes del universo Donkey Kong."
 >
   <h1>Personajes</h1>
-  <p>Listado de ejemplo (contenido de marcador de posición).</p>
-  <ul>
+  <p>Todos los personajes del universo Donkey Kong, ordenados alfabéticamente.</p>
+
+  <ul class="card-grid" role="list">
     {characters.map((character) => (
       <li>
-        <strong>{character.data.name}</strong> — {character.data.role}
-        <p>{character.data.description}</p>
+        <CharacterCard
+          name={character.data.name}
+          role={character.data.role}
+          description={character.data.description}
+          href={`${base}personajes/${character.slug}/`}
+        />
       </li>
     ))}
   </ul>

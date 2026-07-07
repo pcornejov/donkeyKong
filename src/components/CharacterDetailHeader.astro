@@ -1,0 +1,137 @@
+---
+// Header for a single character's detail page
+// (src/pages/personajes/[slug].astro, owned by the "coder" agent).
+// Purely presentational — analogous in spirit to GameDetailHeader.astro
+// (same eyebrow → title → meta shape, same tokens/utilities) but with its
+// own visual identity: an avatar glyph echoing CharacterCard, and the
+// title rendered in the accent hue instead of primary, so game vs.
+// character detail pages stay easy to tell apart at a glance.
+interface Props {
+  name: string;
+  role: string;
+  firstAppearance: string;
+}
+
+const { name, role, firstAppearance } = Astro.props;
+
+// Same role → chip-color heuristic as CharacterCard, kept in sync so a
+// character's role reads with the same color everywhere it appears.
+const roleClass = /antagonista|villan|enemigo|rival/i.test(role)
+  ? 'chip--danger'
+  : /protagonista|h[ée]roe|aliad|mentor/i.test(role)
+    ? 'chip--accent'
+    : '';
+---
+
+<header class="character-detail-header">
+  <div class="character-detail-header__top">
+    <div class="character-detail-header__avatar" aria-hidden="true">
+      <span class="character-detail-header__glyph">🎮</span>
+    </div>
+
+    <div class="character-detail-header__intro">
+      <span class:list={['chip', roleClass]}>{role}</span>
+      <h1 class="character-detail-header__name">{name}</h1>
+    </div>
+  </div>
+
+  <dl class="character-detail-header__meta">
+    <div class="character-detail-header__meta-item">
+      <dt>Primera aparición</dt>
+      <dd>{firstAppearance}</dd>
+    </div>
+  </dl>
+</header>
+
+<style>
+  .character-detail-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding-block: var(--space-7) var(--space-6);
+    border-bottom: var(--border-width) solid var(--color-border);
+    overflow: hidden;
+  }
+
+  /* Marquee-light accent bar across the top, like GameDetailHeader's, but
+     with the hues run in reverse order so the two headers rhyme without
+     being identical. */
+  .character-detail-header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      var(--color-secondary),
+      var(--color-primary)
+    );
+  }
+
+  .character-detail-header__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .character-detail-header__avatar {
+    flex: none;
+    width: 5rem;
+    height: 5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-surface-alt), var(--color-bg-elevated));
+    border: var(--border-width) solid var(--color-border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .character-detail-header__glyph {
+    font-size: 2.25rem;
+    filter: drop-shadow(0 0 8px var(--color-secondary-glow));
+  }
+
+  .character-detail-header__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .character-detail-header__name {
+    font-size: var(--font-size-2xl);
+    color: var(--color-accent);
+    text-shadow: 0 0 16px var(--color-accent);
+    max-width: 24ch;
+  }
+
+  .character-detail-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .character-detail-header__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .character-detail-header__meta-item dt {
+    font-family: var(--font-heading);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .character-detail-header__meta-item dd {
+    margin-inline-start: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+  }
+</style>

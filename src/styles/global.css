@@ -261,3 +261,11 @@ input:focus-visible {
   background-color: var(--color-secondary);
   border-color: var(--color-shadow-hard);
 }
+
+/* Danger variant for "warning"/antagonist-flavored tags (e.g. a villain's
+   role chip). Reuses the existing --color-danger token, no new palette. */
+.chip--danger {
+  color: var(--color-text-on-primary);
+  background-color: var(--color-danger);
+  border-color: var(--color-shadow-hard);
+}
