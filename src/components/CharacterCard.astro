@@ -28,7 +28,7 @@ const roleClass = /antagonista|villan|enemigo|rival/i.test(role)
   </div>
 
   <div class="character-card__body">
-    <span class:list={['chip', roleClass, 'character-card__role']}>{role}</span>
+    <span class:list={['chip', 'chip--wrap', roleClass, 'character-card__role']}>{role}</span>
     <h3 class="character-card__name">{name}</h3>
     <p class="character-card__description">{description}</p>
     <span class="character-card__cta">Ver perfil →</span>
@@ -79,6 +79,7 @@ const roleClass = /antagonista|villan|enemigo|rival/i.test(role)
     flex-direction: column;
     gap: var(--space-2);
     flex: 1;
+    min-width: 0;
   }
 
   /* `.chip` is inline-flex, but this flex column parent would otherwise

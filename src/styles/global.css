@@ -281,3 +281,14 @@ a:focus-visible {
   background-color: var(--color-danger);
   border-color: var(--color-shadow-hard);
 }
+
+/* Some chips carry longer free text (e.g. a character's role, which can
+   read like "Aliado (protagonista jugable)") instead of a short tag/platform
+   name. The base .chip forces a single line via white-space: nowrap, which
+   is right for short pills but makes long ones spill outside their card
+   instead of wrapping. */
+.chip--wrap {
+  white-space: normal;
+  text-align: left;
+  max-width: 100%;
+}
