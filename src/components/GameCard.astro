@@ -95,7 +95,9 @@ const { title, year, platforms, description, href } = Astro.props;
   .game-card__year {
     font-family: var(--font-heading);
     font-size: 0.625rem;
-    color: var(--color-secondary);
+    /* --color-link: contrast-safe variant of the same cyan hue as
+       --color-secondary — see tokens.css. */
+    color: var(--color-link);
     text-transform: uppercase;
     flex: none;
   }
@@ -121,6 +123,8 @@ const { title, year, platforms, description, href } = Astro.props;
     margin-top: var(--space-2);
     font-family: var(--font-heading);
     font-size: var(--font-size-xs);
-    color: var(--color-primary);
+    /* --color-primary-text: contrast-safe variant of the same amber hue as
+       --color-primary — see tokens.css. */
+    color: var(--color-primary-text);
   }
 </style>

@@ -67,7 +67,10 @@ const links = [
 
   .site-nav__brand:hover,
   .site-nav__brand:focus-visible {
-    color: var(--color-primary);
+    /* --color-primary-text: contrast-safe variant of --color-primary's
+       amber hue — see tokens.css. The decorative star mark below stays on
+       raw --color-primary since it's aria-hidden and purely decorative. */
+    color: var(--color-primary-text);
   }
 
   .site-nav__brand-mark {
@@ -94,7 +97,12 @@ const links = [
 
   .site-nav__link:hover,
   .site-nav__link:focus-visible {
-    color: var(--color-bg);
+    /* --color-text-on-primary (not --color-bg): in the light theme,
+       --color-bg is near-white and only reaches ~3.2:1 against the teal
+       --color-secondary background — --color-text-on-primary is the token
+       already used everywhere else text sits on a bright accent bg
+       (chip--accent, .btn) and comfortably clears 4.5:1 in both themes. */
+    color: var(--color-text-on-primary);
     background-color: var(--color-secondary);
   }
 </style>

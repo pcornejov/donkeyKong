@@ -145,10 +145,17 @@ a:focus-visible {
   color: var(--color-link-hover);
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible {
-  outline: 3px solid var(--color-secondary);
+/* Generic focus ring for every interactive element — deliberately a bare
+   `:focus-visible` (not an enumerated a/button/input list) so it also
+   applies, with zero extra work, to any textarea/select/[tabindex]/custom
+   control added later (e.g. the search page's <input>). Uses --color-link
+   rather than --color-secondary directly: --color-secondary is tuned to
+   work as a background (chip--accent, nav hover) and is too light on the
+   light theme's pale surfaces to hit the 3:1 non-text contrast minimum for
+   a focus indicator; --color-link is the darkened, contrast-checked
+   variant of the same hue. */
+:focus-visible {
+  outline: 3px solid var(--color-link);
   outline-offset: 2px;
 }
 
@@ -263,9 +270,13 @@ input:focus-visible {
 }
 
 /* Danger variant for "warning"/antagonist-flavored tags (e.g. a villain's
-   role chip). Reuses the existing --color-danger token, no new palette. */
+   role chip). Reuses the existing --color-danger token, no new palette.
+   Foreground is --color-text-on-danger rather than --color-text-on-primary:
+   --color-danger isn't bright enough for dark navy text to clear 4.5:1 in
+   the light theme (dark theme's danger red still pairs fine with the dark
+   navy, so that half of the token is unchanged). */
 .chip--danger {
-  color: var(--color-text-on-primary);
+  color: var(--color-text-on-danger);
   background-color: var(--color-danger);
   border-color: var(--color-shadow-hard);
 }

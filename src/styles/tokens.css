@@ -30,8 +30,14 @@
   --font-size-base: 1rem;
   --font-size-md: 1.125rem;
   --font-size-lg: 1.5rem;
-  --font-size-xl: 2rem;
-  --font-size-2xl: 2.75rem;
+  /* xl/2xl are fluid: at a fixed 2rem/2.75rem, the blocky "Press Start 2P"
+     heading font (wide per-glyph) badly overflows/crowds ~320-375px
+     viewports — a page <h1> or a GameDetailHeader/CharacterDetailHeader
+     title only fit ~8-10 characters per line before wrapping heavily. The
+     clamp() keeps the same max size from ~640-660px up (no visual change
+     at tablet/desktop) and scales down gracefully below that. */
+  --font-size-xl: clamp(1.375rem, 1rem + 2.5vw, 2rem);
+  --font-size-2xl: clamp(1.75rem, 1.1rem + 4vw, 2.75rem);
 
   /* ---------- Spacing scale (4px base) ---------- */
   --space-1: 0.25rem;
@@ -95,6 +101,16 @@
 
   --color-link: var(--color-secondary);
   --color-link-hover: var(--color-primary);
+
+  /* Text-safe variants: --color-primary/--color-secondary are tuned to work
+     as BACKGROUNDS (buttons, chip--accent, nav hover) against dark text, so
+     they can be too light/saturated for AA contrast when used directly as
+     small text on light surfaces. These two tokens exist for exactly that
+     case (page titles, card CTAs, eyebrow labels). In the dark theme they
+     are identical to their source token (no visual change); the light
+     theme overrides below darken them just enough to pass 4.5:1. */
+  --color-primary-text: var(--color-primary);
+  --color-text-on-danger: var(--color-text-on-primary);
 }
 
 /* Light theme override — same tokens, softer daylight-arcade mood */
@@ -115,7 +131,7 @@
     --color-primary-glow: rgba(224, 121, 10, 0.25);
     --color-secondary: #0097a8;
     --color-secondary-glow: rgba(0, 151, 168, 0.2);
-    --color-accent: #d6335a;
+    --color-accent: #b81f46;
 
     --color-success: #16a34a;
     --color-warning: #b45309;
@@ -124,8 +140,17 @@
     --color-border: #d8d0f5;
     --color-shadow-hard: #cabdf2;
 
-    --color-link: #0097a8;
-    --color-link-hover: #d6335a;
+    /* Darkened vs. the raw --color-secondary/--color-accent hues so plain
+       body links clear 4.5:1 on every surface tone (bg/bg-elevated/surface/
+       surface-alt) — the un-darkened values only reached ~3.2:1 here. */
+    --color-link: #026778;
+    --color-link-hover: var(--color-accent);
+
+    /* See base :root for why these exist: same hues as --color-primary /
+       --color-danger, darkened/paired so small text stays AA-compliant on
+       this theme's light surfaces. */
+    --color-primary-text: #8f4805;
+    --color-text-on-danger: #ffffff;
   }
 }
 
@@ -148,6 +173,8 @@
   --color-shadow-hard: #0c0820;
   --color-link: var(--color-secondary);
   --color-link-hover: var(--color-primary);
+  --color-primary-text: var(--color-primary);
+  --color-text-on-danger: var(--color-text-on-primary);
 }
 
 :root[data-theme='light'] {
@@ -163,9 +190,11 @@
   --color-primary-glow: rgba(224, 121, 10, 0.25);
   --color-secondary: #0097a8;
   --color-secondary-glow: rgba(0, 151, 168, 0.2);
-  --color-accent: #d6335a;
+  --color-accent: #b81f46;
   --color-border: #d8d0f5;
   --color-shadow-hard: #cabdf2;
-  --color-link: #0097a8;
-  --color-link-hover: #d6335a;
+  --color-link: #026778;
+  --color-link-hover: var(--color-accent);
+  --color-primary-text: #8f4805;
+  --color-text-on-danger: #ffffff;
 }
