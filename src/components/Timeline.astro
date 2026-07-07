@@ -106,7 +106,9 @@ const { items } = Astro.props;
 
   .timeline__title:hover,
   .timeline__title:focus-visible {
-    color: var(--color-primary);
+    /* --color-primary-text: contrast-safe variant of --color-primary's
+       amber hue — see tokens.css. */
+    color: var(--color-primary-text);
   }
 
   .timeline__summary {

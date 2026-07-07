@@ -91,13 +91,20 @@ const { title, releaseYear, platforms, developer, publisher, tags } = Astro.prop
   .game-detail-header__year {
     font-family: var(--font-heading);
     font-size: var(--font-size-xs);
-    color: var(--color-secondary);
+    /* --color-link, not --color-secondary directly: same cyan hue, but
+       darkened enough in the light theme to stay AA-readable at this
+       small size (see tokens.css). */
+    color: var(--color-link);
     text-shadow: 0 0 12px var(--color-secondary-glow);
   }
 
   .game-detail-header__title {
     font-size: var(--font-size-2xl);
-    color: var(--color-primary);
+    /* --color-primary-text, not --color-primary directly: --color-primary
+       is tuned for use as a button background and is too light for AA
+       contrast as text on the light theme's page background (see
+       tokens.css). */
+    color: var(--color-primary-text);
     text-shadow: 0 0 18px var(--color-primary-glow);
     max-width: 24ch;
   }
