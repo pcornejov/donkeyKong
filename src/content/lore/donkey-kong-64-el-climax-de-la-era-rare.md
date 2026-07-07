@@ -1,0 +1,14 @@
+---
+title: "Donkey Kong 64: el clímax de la era Rare"
+order: 6
+summary: >
+  El salto al 3D reunió por primera y única vez a cinco Kong jugables —Donkey,
+  Diddy, Lanky, Tiny y Chunky— en una aventura de proporciones desmedidas que
+  cerraría, sin saberlo nadie todavía, la etapa de Rare al frente de la saga.
+---
+
+Para 1999, la familia Kong ya había demostrado en SNES y en la trilogía portátil de Game Boy que su fórmula de plataformas podía sostener secuelas, spin-offs y una genealogía en expansión constante. Donkey Kong 64 llevó esa lógica a su extremo natural: en lugar de alternar entre dos o tres personajes jugables como hasta entonces, Rare construyó una aventura en torno a cinco Kong simultáneos, cada uno con un arsenal de armas, movimientos y accesorios exclusivos. Junto a Donkey Kong y Diddy Kong, ya veteranos del clan, se sumaron tres caras nuevas: Lanky Kong, un orangután de brazos larguísimos y personalidad payasesca que la propia ficción describe como una rama distante y poco convencional del árbol Kong; Tiny Kong, la hermana menor de Dixie, ágil y capaz de encogerse para colarse por espacios reducidos; y Chunky Kong, primo de Tiny y Dixie y hermano mayor de Kiddy, el miembro más voluminoso del grupo tras el propio Donkey Kong pese a su carácter tímido y pacífico.
+
+La trama retoma, una vez más, la rivalidad con King K. Rool, que esta vez roba la reserva de Bananas Doradas de la isla de los Kong y coloca explosivos en su hogar, obligando a Donkey Kong a liberar a sus cuatro parientes —capturados de antemano por los Kremlings precisamente para distraerlo durante el robo— antes de poder plantarle cara. Esa estructura coral, sin embargo, tuvo un costo de diseño: cada nivel debía recorrerse en la práctica una vez por cada uno de los cinco Kong para recolectar la totalidad de sus coleccionables asociados, lo que convirtió a Donkey Kong 64 en uno de los "collectathons" más densos y, para buena parte de la crítica retrospectiva, más agotadores de toda su generación. Ese volumen de contenido fue, a la vez, su mayor orgullo técnico y su mayor punto de fricción: el juego requería obligatoriamente el accesorio Expansion Pak de la Nintendo 64 para funcionar, un símbolo de las ambiciones con las que Rare abordó el proyecto, comparable solo al de otros pesos pesados técnicos de la consola como Perfect Dark o The Legend of Zelda: Majora's Mask.
+
+Con el tiempo, Donkey Kong 64 quedaría marcado como algo más que un hito técnico de Nintendo 64: fue, sin que nadie lo supiera todavía en 1999, el último gran capítulo de la familia Kong desarrollado por Rare. El estudio británico que había reinventado al gorila en 1994 y había multiplicado su elenco familiar durante cinco años seguidos estaba a punto de cambiar de dueño, y con ese cambio llegaría el primer gran silencio de la saga.
