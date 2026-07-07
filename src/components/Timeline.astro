@@ -1,0 +1,135 @@
+---
+// Presentational chronological timeline. Consumed by src/pages/lore/index.astro
+// (owned by the "coder" agent), which is expected to pass an already-sorted
+// array of milestones — this component does not fetch, sort, or otherwise
+// touch content collections; it only renders what it's given.
+//
+// Layout: a single visual column everywhere (mobile through desktop) — an
+// order badge + connecting rail on the left, title/summary on the right.
+// That shape already reads well from ~6 to ~9 items without needing a
+// zig-zag/alternating-sides variant that gets fragile at that length.
+interface TimelineItem {
+  order: number;
+  title: string;
+  summary: string;
+  href: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {
+    items.map((item) => (
+      <li class="timeline__item">
+        <div class="timeline__rail" aria-hidden="true">
+          <span class="chip chip--accent timeline__marker">{item.order}</span>
+          <span class="timeline__line" />
+        </div>
+        <div class="timeline__content">
+          <a class="timeline__title" href={item.href}>
+            {item.title}
+          </a>
+          <p class="timeline__summary">{item.summary}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-5);
+  }
+
+  /* Marker + connecting rail column. The line is a flex child that grows to
+     fill the remaining height of the item, so it always reaches the next
+     marker regardless of how tall the title/summary text is. */
+  .timeline__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline__marker {
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: var(--font-size-sm);
+    padding: 0;
+    box-shadow: var(--shadow-glow-sm);
+  }
+
+  .timeline__line {
+    flex: 1;
+    width: var(--border-width);
+    min-height: var(--space-4);
+    margin-block: var(--space-2);
+    background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  }
+
+  .timeline__item:last-child .timeline__line {
+    display: none;
+  }
+
+  .timeline__content {
+    padding-bottom: var(--space-6);
+  }
+
+  .timeline__item:last-child .timeline__content {
+    padding-bottom: 0;
+  }
+
+  .timeline__title {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-heading);
+    color: var(--color-text);
+    text-decoration-color: var(--color-secondary);
+    margin-block: var(--space-1) var(--space-2);
+    padding-top: var(--space-1);
+  }
+
+  .timeline__title:hover,
+  .timeline__title:focus-visible {
+    color: var(--color-primary);
+  }
+
+  .timeline__summary {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    max-width: 60ch;
+  }
+
+  /* A touch more breathing room once there's space for it; the column
+     layout itself doesn't need to change between mobile and desktop. */
+  @media (min-width: 48rem) {
+    .timeline__item {
+      column-gap: var(--space-6);
+    }
+
+    .timeline__marker {
+      width: 3rem;
+      height: 3rem;
+      font-size: var(--font-size-base);
+    }
+
+    .timeline__title {
+      font-size: var(--font-size-md);
+    }
+  }
+</style>

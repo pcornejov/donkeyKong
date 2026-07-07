@@ -1,0 +1,41 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const loreEntries = await getCollection('lore');
+  return loreEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'lore'>;
+}
+
+const { entry } = Astro.props;
+const { title, summary } = entry.data;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={`${title} - Enciclopedia de Donkey Kong`} description={summary}>
+  <article>
+    <h1>{title}</h1>
+
+    <div class="lore-detail-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .lore-detail-body {
+    padding-block: var(--space-6);
+    max-width: 70ch;
+  }
+
+  .lore-detail-body :global(p) {
+    margin-block-end: var(--space-4);
+  }
+</style>
